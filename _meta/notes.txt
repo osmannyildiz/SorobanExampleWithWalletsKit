@@ -7,3 +7,8 @@ stellar contract invoke --id CAFQBPW36523M623LY4665J454KKO63KP6GQEDQ64TJYT7SHAQX
 
 stellar contract init . --name increment
 cargo test -- --nocapture
+stellar contract build
+stellar contract optimize --wasm target/wasm32v1-none/release/increment.wasm
+stellar contract upload --wasm target/wasm32v1-none/release/increment.optimized.wasm --source alice --network testnet
+stellar contract deploy --wasm-hash 690c26ca4edeb2c82f26ebfa0857e10b79a2d446889db30a0555971110f178b5 --source alice --network testnet --alias increment
+stellar contract invoke --id CD5ZM5HCYWNTXFSLGY6MCBJZSCZC4IFGNISSV2X63UOMRHSKX5FDUNDL --source alice --network testnet -- increment
