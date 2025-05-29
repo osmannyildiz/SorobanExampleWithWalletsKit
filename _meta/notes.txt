@@ -14,3 +14,11 @@ stellar contract deploy --wasm-hash 690c26ca4edeb2c82f26ebfa0857e10b79a2d446889d
 stellar contract invoke --id CD5ZM5HCYWNTXFSLGY6MCBJZSCZC4IFGNISSV2X63UOMRHSKX5FDUNDL --source alice --network testnet -- increment
 
 pnpm create astro
+cd frontend
+cp -R ../.stellar/ .stellar
+stellar contract bindings typescript --network testnet --contract-id hello_world --output-dir packages/hello_world
+cd packages/hello_world
+pnpm i
+pnpm build
+cd ../..
+pnpm dev

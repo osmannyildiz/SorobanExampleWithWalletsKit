@@ -1,11 +1,13 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import * as Client from '../../packages/hello_world';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const contract = new Client.Client({
+   ...Client.networks.testnet,
+   rpcUrl: 'https://soroban-testnet.stellar.org:443'
+});
+
+const { result } = await contract.hello({to: "Osi"});
+const greeting = result.join(" ");
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<h1>{greeting}</h1>
