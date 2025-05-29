@@ -4,3 +4,5 @@ stellar contract build
 stellar contract optimize --wasm target/wasm32v1-none/release/hello_world.wasm
 stellar contract deploy --wasm target/wasm32v1-none/release/hello_world.optimized.wasm --source alice --network testnet --alias hello_world
 stellar contract invoke --id CAFQBPW36523M623LY4665J454KKO63KP6GQEDQ64TJYT7SHAQXORDQJ --source alice --network testnet -- hello --to Osi
+
+stellar contract init . --name increment
