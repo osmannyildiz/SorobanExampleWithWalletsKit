@@ -6,3 +6,4 @@ stellar contract deploy --wasm target/wasm32v1-none/release/hello_world.optimize
 stellar contract invoke --id CAFQBPW36523M623LY4665J454KKO63KP6GQEDQ64TJYT7SHAQXORDQJ --source alice --network testnet -- hello --to Osi
 
 stellar contract init . --name increment
+cargo test -- --nocapture
