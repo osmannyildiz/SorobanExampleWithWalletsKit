@@ -1,0 +1,41 @@
+<p>Current value: <strong id="current-value" aria-live="polite">???</strong></p>
+<button data-increment aria-controls="current-value">Increment</button>
+
+<script>
+  import * as Client from '../../packages/increment';
+  import { getPublicKey, signTransaction } from "../stellar-wallets-kit";
+
+  const contract = new Client.Client({
+    ...Client.networks.testnet,
+    rpcUrl: 'https://soroban-testnet.stellar.org:443'
+  });
+
+  const button = document.querySelector("[data-increment]") as HTMLButtonElement;
+  const currentValue = document.querySelector("#current-value") as HTMLElement;
+
+  button.addEventListener("click", async () => {
+    const publicKey = await getPublicKey();
+    if (!publicKey) {
+      alert("Please connect your wallet first");
+      return;
+    }
+
+    contract.options.publicKey = publicKey;
+    contract.options.signTransaction = signTransaction;
+
+    button.disabled = true;
+    currentValue.innerHTML =
+      currentValue.innerHTML +
+      '<span> - updating...</span>';
+
+    try {
+      const tx = await contract.increment();
+      const { result } = await tx.signAndSend();
+      currentValue.innerText = result.toString();
+    } catch (e) {
+      console.error(e);
+    } finally {
+      button.disabled = false;
+    }
+  });
+</script>

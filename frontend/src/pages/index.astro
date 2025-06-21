@@ -1,6 +1,7 @@
 ---
 import * as Client from '../../packages/hello_world';
 import ConnectWallet from '../components/ConnectWallet.astro'
+import Incrementor from '../components/Incrementor.astro'
 
 const contract = new Client.Client({
    ...Client.networks.testnet,
@@ -17,4 +18,5 @@ const greeting = result.join(" ");
 
 <main>
    <h1>{greeting}</h1>
+   <Incrementor />
 </main>
