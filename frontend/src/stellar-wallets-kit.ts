@@ -4,7 +4,6 @@ import {
   StellarWalletsKit,
   WalletNetwork,
 } from "@creit.tech/stellar-wallets-kit";
-import { networks } from "../packages/hello_world";
 
 const LOCAL_STORAGE_KEYS = {
   SELECTED_WALLET_ID: "selectedWalletId",
@@ -21,8 +20,8 @@ export function setSelectedWalletId(walletId: string) {
 
 const kit = new StellarWalletsKit({
   modules: allowAllModules(),
-  // network: WalletNetwork.TESTNET,
-  network: networks.testnet.networkPassphrase as WalletNetwork,
+  network: WalletNetwork.TESTNET,
+  // network: networks.testnet.networkPassphrase as WalletNetwork,
   // StellarWalletsKit forces you to specify a wallet, even if the user didn't
   // select one yet, so we default to Freighter.
   // We'll work around this later in `getPublicKey`.

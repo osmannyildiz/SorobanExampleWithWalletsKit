@@ -34,17 +34,16 @@ if (typeof window !== 'undefined') {
 export const networks = {
   testnet: {
     networkPassphrase: "Test SDF Network ; September 2015",
-    contractId: "CDFL6OD25UTAC3ANNJ726ODXGBAG6ET2YMDD5XKP6QXFK43S67B3AYKQ",
+    contractId: "CAIUDNLFJ474G66TSISYPPYVBVGLDATS566BDYEKUGH4RZKJZNO64623",
   }
 } as const
 
 
 export interface Client {
   /**
-   * Construct and simulate a increment transaction. Returns an `AssembledTransaction` object which will have a `result` field containing the result of the simulation. If this transaction changes contract state, you will need to call `signAndSend()` on the returned object.
-   * Increments an internal counter, and returns the value.
+   * Construct and simulate a hello transaction. Returns an `AssembledTransaction` object which will have a `result` field containing the result of the simulation. If this transaction changes contract state, you will need to call `signAndSend()` on the returned object.
    */
-  increment: (options?: {
+  hello: ({to}: {to: string}, options?: {
     /**
      * The fee to pay for the transaction. Default: BASE_FEE
      */
@@ -59,7 +58,7 @@ export interface Client {
      * Whether to automatically simulate the transaction when constructing the AssembledTransaction. Default: true
      */
     simulate?: boolean;
-  }) => Promise<AssembledTransaction<u32>>
+  }) => Promise<AssembledTransaction<Array<string>>>
 
 }
 export class Client extends ContractClient {
@@ -79,11 +78,11 @@ export class Client extends ContractClient {
   }
   constructor(public readonly options: ContractClientOptions) {
     super(
-      new ContractSpec([ "AAAAAAAAADZJbmNyZW1lbnRzIGFuIGludGVybmFsIGNvdW50ZXIsIGFuZCByZXR1cm5zIHRoZSB2YWx1ZS4AAAAAAAlpbmNyZW1lbnQAAAAAAAAAAAAAAQAAAAQ=" ]),
+      new ContractSpec([ "AAAAAAAAAAAAAAAFaGVsbG8AAAAAAAABAAAAAAAAAAJ0bwAAAAAAEAAAAAEAAAPqAAAAEA==" ]),
       options
     )
   }
   public readonly fromJSON = {
-    increment: this.txFromJSON<u32>
+    hello: this.txFromJSON<Array<string>>
   }
 }

@@ -1,22 +1,28 @@
 ---
-import * as Client from '../../packages/hello_world';
-import ConnectWallet from '../components/ConnectWallet.astro'
-import Incrementor from '../components/Incrementor.astro'
-
-const contract = new Client.Client({
-   ...Client.networks.testnet,
-   rpcUrl: 'https://soroban-testnet.stellar.org:443'
-});
-
-const { result } = await contract.hello({to: "Osi"});
-const greeting = result.join(" ");
+import ConnectWallet from "../components/ConnectWallet.astro";
+import Greeter from "../components/Greeter.astro";
+import Counter from "../components/Counter.astro";
 ---
 
-<header>
-   <ConnectWallet />
-</header>
+<style>
+  body {
+    margin: 0;
+  }
 
+  header {
+    background-color: #eee;
+    padding: 0.5rem 1rem;
+  }
+
+  main {
+    padding: 0 1rem;
+  }
+</style>
+
+<header>
+  <ConnectWallet />
+</header>
 <main>
-   <h1>{greeting}</h1>
-   <Incrementor />
+  <Greeter />
+  <Counter />
 </main>

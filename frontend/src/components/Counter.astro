@@ -1,16 +1,23 @@
-<p>Current value: <strong id="current-value" aria-live="polite">???</strong></p>
-<button data-increment aria-controls="current-value">Increment</button>
+<div>
+  <h1>Counter</h1>
+  <p>
+    Current value: <strong id="current-value" aria-live="polite">???</strong>
+  </p>
+  <button data-increment aria-controls="current-value">Increment</button>
+</div>
 
 <script>
-  import * as Client from '../../packages/increment';
+  import * as Client from "../../packages/counter";
   import { getPublicKey, signTransaction } from "../stellar-wallets-kit";
 
   const contract = new Client.Client({
     ...Client.networks.testnet,
-    rpcUrl: 'https://soroban-testnet.stellar.org:443'
+    rpcUrl: "https://soroban-testnet.stellar.org:443",
   });
 
-  const button = document.querySelector("[data-increment]") as HTMLButtonElement;
+  const button = document.querySelector(
+    "[data-increment]"
+  ) as HTMLButtonElement;
   const currentValue = document.querySelector("#current-value") as HTMLElement;
 
   button.addEventListener("click", async () => {
@@ -25,8 +32,7 @@
 
     button.disabled = true;
     currentValue.innerHTML =
-      currentValue.innerHTML +
-      '<span> - updating...</span>';
+      currentValue.innerHTML + "<span> - updating...</span>";
 
     try {
       const tx = await contract.increment();

@@ -5,10 +5,10 @@ use soroban_sdk::{contract, contractimpl, log, symbol_short, Env, Symbol};
 const COUNTER: Symbol = symbol_short!("COUNTER");
 
 #[contract]
-pub struct IncrementContract;
+pub struct CounterContract;
 
 #[contractimpl]
-impl IncrementContract {
+impl CounterContract {
     /// Increments an internal counter, and returns the value.
     pub fn increment(env: Env) -> u32 {
         let mut count: u32 = env.storage().instance().get(&COUNTER).unwrap_or(0);
