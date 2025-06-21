@@ -9,6 +9,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@creit.tech/stellar-wallets-kit": "^1.7.5",
     "astro": "^5.8.0"
   }
 }

@@ -1,5 +1,6 @@
 ---
 import * as Client from '../../packages/hello_world';
+import ConnectWallet from '../components/ConnectWallet.astro'
 
 const contract = new Client.Client({
    ...Client.networks.testnet,
@@ -10,4 +11,10 @@ const { result } = await contract.hello({to: "Osi"});
 const greeting = result.join(" ");
 ---
 
-<h1>{greeting}</h1>
+<header>
+   <ConnectWallet />
+</header>
+
+<main>
+   <h1>{greeting}</h1>
+</main>

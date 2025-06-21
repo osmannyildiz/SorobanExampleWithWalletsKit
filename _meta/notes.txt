@@ -21,3 +21,5 @@ cd packages/hello_world
 pnpm i && pnpm build
 cd ../..
 pnpm dev
+
+pnpm add @creit.tech/stellar-wallets-kit
