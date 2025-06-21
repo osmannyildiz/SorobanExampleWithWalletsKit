@@ -1,21 +1,9 @@
-# Soroban Project
+# Soroban Example Project w/ Stellar Wallets Kit
 
-## Project Structure
-
-This repository uses the recommended structure for a Soroban project:
-```text
-.
-├── contracts
-│   └── hello_world
-│       ├── src
-│       │   ├── lib.rs
-│       │   └── test.rs
-│       └── Cargo.toml
-├── Cargo.toml
-└── README.md
-```
-
-- New Soroban contracts can be put in `contracts`, each in their own directory. There is already a `hello_world` contract in there to get you started.
-- If you initialized this project with any other example contracts via `--with-example`, those contracts will be in the `contracts` directory as well.
-- Contracts should have their own `Cargo.toml` files that rely on the top-level `Cargo.toml` workspace for their dependencies.
-- Frontend libraries can be added to the top-level directory as well. If you initialized this project with a frontend template via `--frontend-template` you will have those files already included.
+This project follows these official tutorials:
+- [Hello World](https://developers.stellar.org/docs/build/smart-contracts/getting-started/hello-world)
+- [Deploy to Testnet](https://developers.stellar.org/docs/build/smart-contracts/getting-started/deploy-to-testnet)
+- [Storing Data](https://developers.stellar.org/docs/build/smart-contracts/getting-started/storing-data)
+- [Deploy the Increment Contract](https://developers.stellar.org/docs/build/smart-contracts/getting-started/deploy-increment-contract)
+- [Build a Hello World Frontend](https://developers.stellar.org/docs/build/smart-contracts/getting-started/hello-world-frontend)
+- [Build a Dapp Frontend](https://developers.stellar.org/docs/build/apps/dapp-frontend)
