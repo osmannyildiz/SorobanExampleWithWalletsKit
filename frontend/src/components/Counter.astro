@@ -7,13 +7,8 @@
 </div>
 
 <script>
-  import * as Client from "../../packages/counter";
+  import { counter } from "../contracts/counter";
   import { getPublicKey, signTransaction } from "../stellar-wallets-kit";
-
-  const contract = new Client.Client({
-    ...Client.networks.testnet,
-    rpcUrl: "https://soroban-testnet.stellar.org:443",
-  });
 
   const button = document.querySelector(
     "[data-increment]"
@@ -27,15 +22,15 @@
       return;
     }
 
-    contract.options.publicKey = publicKey;
-    contract.options.signTransaction = signTransaction;
+    counter.options.publicKey = publicKey;
+    counter.options.signTransaction = signTransaction;
 
     button.disabled = true;
     currentValue.innerHTML =
       currentValue.innerHTML + "<span> - updating...</span>";
 
     try {
-      const tx = await contract.increment();
+      const tx = await counter.increment();
       const { result } = await tx.signAndSend();
       currentValue.innerText = result.toString();
     } catch (e) {

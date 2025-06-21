@@ -1,12 +1,7 @@
 ---
-import * as Client from "../../packages/greeter";
+import { greeter } from "../contracts/greeter";
 
-const contract = new Client.Client({
-  ...Client.networks.testnet,
-  rpcUrl: "https://soroban-testnet.stellar.org:443",
-});
-
-const { result } = await contract.hello({ to: "Stellar" });
+const { result } = await greeter.hello({ to: "Stellar" });
 const greeting = result.join(" ");
 ---
 
