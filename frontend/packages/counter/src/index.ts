@@ -34,17 +34,56 @@ if (typeof window !== 'undefined') {
 export const networks = {
   testnet: {
     networkPassphrase: "Test SDF Network ; September 2015",
-    contractId: "CBE474RR5UQOH7VXG62MRUYZQDEW7QUZGY3BIJFSTZ6UHRKYYAX4AJR2",
+    contractId: "CCT5SM5YBYG45XRNMVUZVA3TE4LIDVQ24YITLJNTLFL65LWNKLMKK6RI",
   }
 } as const
 
 
 export interface Client {
   /**
+   * Construct and simulate a read transaction. Returns an `AssembledTransaction` object which will have a `result` field containing the result of the simulation. If this transaction changes contract state, you will need to call `signAndSend()` on the returned object.
+   */
+  read: (options?: {
+    /**
+     * The fee to pay for the transaction. Default: BASE_FEE
+     */
+    fee?: number;
+
+    /**
+     * The maximum amount of time to wait for the transaction to complete. Default: DEFAULT_TIMEOUT
+     */
+    timeoutInSeconds?: number;
+
+    /**
+     * Whether to automatically simulate the transaction when constructing the AssembledTransaction. Default: true
+     */
+    simulate?: boolean;
+  }) => Promise<AssembledTransaction<u32>>
+
+  /**
    * Construct and simulate a increment transaction. Returns an `AssembledTransaction` object which will have a `result` field containing the result of the simulation. If this transaction changes contract state, you will need to call `signAndSend()` on the returned object.
-   * Increments an internal counter, and returns the value.
    */
   increment: (options?: {
+    /**
+     * The fee to pay for the transaction. Default: BASE_FEE
+     */
+    fee?: number;
+
+    /**
+     * The maximum amount of time to wait for the transaction to complete. Default: DEFAULT_TIMEOUT
+     */
+    timeoutInSeconds?: number;
+
+    /**
+     * Whether to automatically simulate the transaction when constructing the AssembledTransaction. Default: true
+     */
+    simulate?: boolean;
+  }) => Promise<AssembledTransaction<u32>>
+
+  /**
+   * Construct and simulate a decrement transaction. Returns an `AssembledTransaction` object which will have a `result` field containing the result of the simulation. If this transaction changes contract state, you will need to call `signAndSend()` on the returned object.
+   */
+  decrement: (options?: {
     /**
      * The fee to pay for the transaction. Default: BASE_FEE
      */
@@ -79,11 +118,15 @@ export class Client extends ContractClient {
   }
   constructor(public readonly options: ContractClientOptions) {
     super(
-      new ContractSpec([ "AAAAAAAAADZJbmNyZW1lbnRzIGFuIGludGVybmFsIGNvdW50ZXIsIGFuZCByZXR1cm5zIHRoZSB2YWx1ZS4AAAAAAAlpbmNyZW1lbnQAAAAAAAAAAAAAAQAAAAQ=" ]),
+      new ContractSpec([ "AAAAAAAAAAAAAAAEcmVhZAAAAAAAAAABAAAABA==",
+        "AAAAAAAAAAAAAAAJaW5jcmVtZW50AAAAAAAAAAAAAAEAAAAE",
+        "AAAAAAAAAAAAAAAJZGVjcmVtZW50AAAAAAAAAAAAAAEAAAAE" ]),
       options
     )
   }
   public readonly fromJSON = {
-    increment: this.txFromJSON<u32>
+    read: this.txFromJSON<u32>,
+        increment: this.txFromJSON<u32>,
+        decrement: this.txFromJSON<u32>
   }
 }

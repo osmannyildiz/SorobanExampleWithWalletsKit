@@ -7,10 +7,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "stellar-build": "stellar contract build",
-    "stellar-deploy-greeter": "stellar contract optimize --wasm ../target/wasm32v1-none/release/greeter.wasm && stellar contract deploy --wasm ../target/wasm32v1-none/release/greeter.optimized.wasm --source alice --network testnet --alias greeter",
-    "stellar-deploy-counter": "stellar contract optimize --wasm ../target/wasm32v1-none/release/counter.wasm && stellar contract deploy --wasm ../target/wasm32v1-none/release/counter.optimized.wasm --source alice --network testnet --alias counter",
-    "stellar-bindings": "cp -R ../.stellar/ .stellar && stellar contract bindings typescript --network testnet --contract-id greeter --output-dir packages/greeter --overwrite && stellar contract bindings typescript --network testnet --contract-id counter --output-dir packages/counter --overwrite && cd packages/greeter && npm i && npm run build && cd ../counter && npm i && npm run build"
+    "stellar-refresh-greeter": "stellar contract build && stellar contract optimize --wasm ../target/wasm32v1-none/release/greeter.wasm && stellar contract deploy --wasm ../target/wasm32v1-none/release/greeter.optimized.wasm --source alice --network testnet --alias greeter && cp -R ../.stellar/ .stellar && stellar contract bindings typescript --network testnet --contract-id greeter --output-dir packages/greeter --overwrite && cd packages/greeter && npm i && npm run build",
+    "stellar-refresh-counter": "stellar contract build && stellar contract optimize --wasm ../target/wasm32v1-none/release/counter.wasm && stellar contract deploy --wasm ../target/wasm32v1-none/release/counter.optimized.wasm --source alice --network testnet --alias counter && cp -R ../.stellar/ .stellar && stellar contract bindings typescript --network testnet --contract-id counter --output-dir packages/counter --overwrite && cd packages/counter && npm i && npm run build"
   },
   "dependencies": {
     "@creit.tech/stellar-wallets-kit": "^1.7.5",

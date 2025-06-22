@@ -1,21 +1,32 @@
+---
+import { counter } from "../contracts/counter";
+
+const { result } = await counter.read();
+const currentValue = result.toString();
+---
+
 <div>
   <h1>Counter</h1>
   <p>
-    Current value: <strong id="current-value" aria-live="polite">???</strong>
+    Current value: <strong id="current-value" aria-live="polite">{currentValue}</strong>
   </p>
   <button data-increment aria-controls="current-value">Increment</button>
+  <button data-decrement aria-controls="current-value">Decrement</button>
 </div>
 
 <script>
   import { counter } from "../contracts/counter";
   import { getPublicKey, signTransaction } from "../stellar-wallets-kit";
 
-  const button = document.querySelector(
+  const incrementButton = document.querySelector(
     "[data-increment]"
+  ) as HTMLButtonElement;
+  const decrementButton = document.querySelector(
+    "[data-decrement]"
   ) as HTMLButtonElement;
   const currentValue = document.querySelector("#current-value") as HTMLElement;
 
-  button.addEventListener("click", async () => {
+  incrementButton.addEventListener("click", async () => {
     const publicKey = await getPublicKey();
     if (!publicKey) {
       alert("Please connect your wallet first");
@@ -25,7 +36,7 @@
     counter.options.publicKey = publicKey;
     counter.options.signTransaction = signTransaction;
 
-    button.disabled = true;
+    incrementButton.disabled = true;
     currentValue.innerHTML =
       currentValue.innerHTML + "<span> - updating...</span>";
 
@@ -36,7 +47,32 @@
     } catch (e) {
       console.error(e);
     } finally {
-      button.disabled = false;
+      incrementButton.disabled = false;
+    }
+  });
+  
+  decrementButton.addEventListener("click", async () => {
+    const publicKey = await getPublicKey();
+    if (!publicKey) {
+      alert("Please connect your wallet first");
+      return;
+    }
+
+    counter.options.publicKey = publicKey;
+    counter.options.signTransaction = signTransaction;
+
+    decrementButton.disabled = true;
+    currentValue.innerHTML =
+      currentValue.innerHTML + "<span> - updating...</span>";
+
+    try {
+      const tx = await counter.decrement();
+      const { result } = await tx.signAndSend();
+      currentValue.innerText = result.toString();
+    } catch (e) {
+      console.error(e);
+    } finally {
+      decrementButton.disabled = false;
     }
   });
 </script>
